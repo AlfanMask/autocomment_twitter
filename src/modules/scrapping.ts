@@ -1,5 +1,6 @@
 import { page } from "..";
 import delay from "../helper/delay";
+import goHome from "../helper/gohome";
 import comment from "./comment";
 
 export default async function scrapping() {
@@ -46,7 +47,7 @@ export default async function scrapping() {
     await delay(300000)
 
     // refresh to main page with newly freshed timeline
-    await page.goto('https://twitter.com/')
+    await goHome()
     console.log('scrapping-10')
 
     // repeat

@@ -1,5 +1,7 @@
 import { geminiModel, page } from ".."
 import delay from "../helper/delay";
+import goHome from "../helper/gohome";
+import scrapping from "./scrapping";
 
 export default async function comment(threadMsg: string) {
     // make a prompt with {threadMsg}
@@ -8,30 +10,42 @@ export default async function comment(threadMsg: string) {
     console.log(`comment-1: ${tweetPrompt}`)
 
     // get response from Gemini AI
-    const result = await geminiModel.generateContent(tweetPrompt)
-    console.log('comment-2')
-    const response = result.response;
-    console.log('comment-3')
-    const answerText = response.text();
-    console.log('comment-4: ', answerText)
+    try {
+        const result = await geminiModel.generateContent(tweetPrompt)
+        console.log('comment-2')
+        const response = result.response;
+        console.log('comment-3')
+        const answerText = response.text();
+        console.log('comment-4: ', answerText)
 
-    // put the comment using puppeteer
-    // type R on keyboard to reply on the post
-    await page.keyboard.type('R')
-    await delay(2000)
-    console.log('comment-5')
-
-    await page.keyboard.type(answerText, { delay: 100 });
-    await delay(2000)
-    console.log('comment-6')
+        // put the comment using puppeteer
+        // type R on keyboard to reply on the post
+        await page.keyboard.type('R')
+        await delay(2000)
+        console.log('comment-5')
     
-    // type ctrl + enter to post
-    await page.keyboard.down('ControlLeft');
-    await page.keyboard.press('Enter');
-    await delay(2000)
-    await page.keyboard.up('ControlLeft');
+        await page.keyboard.type(answerText, { delay: 100 });
+        await delay(2000)
+        console.log('comment-6')
 
-    await delay(2000)
-    await page.screenshot({ path: 'comment.png' });
-    console.log('comment-7: COMMENTED!')
+        // type ctrl + enter to post
+        await page.keyboard.down('ControlLeft');
+        await delay(1000)
+        await page.keyboard.press('Enter');
+        await delay(2000)
+        await page.keyboard.up('ControlLeft');
+    
+        await delay(2000)
+        await page.screenshot({ path: 'comment.png' });
+        console.log('comment-7: COMMENTED!')
+    } catch (error) {
+        console.log(error)
+
+        // refresh to main page with newly freshed timeline and rescrapping
+        await goHome()
+        await delay(10000)
+        scrapping()
+    }
+
+    
 }
