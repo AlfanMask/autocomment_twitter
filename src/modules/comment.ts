@@ -18,7 +18,9 @@ export default async function comment(threadMsg: string) {
 
     // put the comment using puppeteer
     try {
-        const inputBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div/div)');
+        // ERROR
+        // const inputBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div/div)');
+        const inputBtn = await page.waitForSelector('::-p-xpath(//*[@id="id__q3de2c8ns8n"]/div[1]/button')
         await delay(2000)
         console.log('comment-5')
         await inputBtn?.click();
@@ -34,13 +36,15 @@ export default async function comment(threadMsg: string) {
     console.log('comment-7')
     await page.screenshot({ path: 'ss/comment-7.png' })
     try {
-        const postBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
+        // ERROR
+        // const postBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
+        const postBtn = await page.waitForSelector('::-p-xpath(//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div/div/div[2]/div[2]/div/div/div/button)');
         await delay(2000)
-        console.log('comment-8')
         await postBtn?.click()
     } catch (error) {
         console.log(error)
     }
+    console.log('comment-8')
     await page.screenshot({ path: 'ss/comment-8.png' })
     await delay(2000)
     console.log('comment-9: COMMENTED!')
