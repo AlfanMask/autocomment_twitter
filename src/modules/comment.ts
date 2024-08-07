@@ -23,14 +23,15 @@ export default async function comment(threadMsg: string) {
 
     await page.keyboard.type(answerText, { delay: 100 });
     await delay(2000)
-    console.log('comment-7')
+    console.log('comment-6')
     
     // type ctrl + enter to post
     await page.keyboard.down('ControlLeft');
     await page.keyboard.press('Enter');
     await delay(2000)
     await page.keyboard.up('ControlLeft');
-    
+
     await delay(2000)
-    console.log('comment-9: COMMENTED!')
+    await page.screenshot({ path: 'comment.png' });
+    console.log('comment-7: COMMENTED!')
 }
