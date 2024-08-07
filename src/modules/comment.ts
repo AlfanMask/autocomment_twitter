@@ -14,50 +14,27 @@ export default async function comment(threadMsg: string) {
     console.log('comment-3')
     const answerText = response.text();
     console.log('comment-4: ', answerText)
+    await page.screenshot({ path: 'ss/comment-4.png' })
 
-    // if redirected to login again -> relogin
-    await page.evaluate(() => {
-        const inputEl = document.querySelector('div.DraftEditor-root') as HTMLElement;
-        inputEl?.click();
-    })
-    
-    // const span2Elements = await page.$$('span');
-    // console.log('login-12')
-    // for (const span of span2Elements) {
-    //     await span.evaluate((el) => {
-    //         if (el?.textContent?.includes('Post your reply')) {
-    //             el?.click();
-    //         }
-    //     })
-    //     break;
-    // }
-    
     // put the comment using puppeteer
-    // const inputBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div)');
-    // await delay(2000)
-    // console.log('comment-5')
-    // await inputBtn?.click();
+    const inputBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div/div)');
+    await delay(2000)
+    console.log('comment-5')
+    await page.screenshot({ path: 'ss/comment-5.png' })
+    await inputBtn?.click();
     await delay(2000)
     console.log('comment-6')
+    await page.screenshot({ path: 'ss/comment-6.png' })
     await page.keyboard.type(answerText, { delay: 100 });
-    await page.screenshot({ path: 'comment.png' })
     await delay(2000)
     console.log('comment-7')
-    let postBtn;
-    try {
-        postBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
-    } catch (error) {
-        console.log('error postBtn1: ', error)
-    }
-    try {
-        postBtn = await page.waitForSelector('::-p-xpath(//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div/div/div[2]/div[2]/div/div/div/button)');
-    } catch (error) {
-        console.log('error postBtn2: ', error)
-    }
-    
+    await page.screenshot({ path: 'ss/comment-7.png' })
+    const postBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
     await delay(2000)
     console.log('comment-8')
+    await page.screenshot({ path: 'ss/comment-8.png' })
     await postBtn?.click()
     await delay(2000)
     console.log('comment-9: COMMENTED!')
+    await page.screenshot({ path: 'ss/comment-9.png' })
 }
