@@ -9,6 +9,7 @@ const login_1 = __importDefault(require("./modules/login"));
 const puppeteer_extra_plugin_stealth_1 = __importDefault(require("puppeteer-extra-plugin-stealth"));
 // const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const generative_ai_1 = require("@google/generative-ai");
+const scrapping_1 = __importDefault(require("./modules/scrapping"));
 require('dotenv').config();
 // middlewares
 puppeteer_extra_1.default.use((0, puppeteer_extra_plugin_stealth_1.default)());
@@ -19,7 +20,7 @@ const getAI = new generative_ai_1.GoogleGenerativeAI(process.env.GEMINI_API_KEY 
 const geminiModel = getAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 exports.geminiModel = geminiModel;
 // launch browser
-puppeteer_extra_1.default.launch({ headless: false }).then(async (browser) => {
+puppeteer_extra_1.default.launch({ headless: true }).then(async (browser) => {
     exports.page = page = await browser.newPage();
     page.setViewport({ height: 720, width: 1280 });
     // generate random user agents so not detected as the same user
@@ -31,4 +32,6 @@ puppeteer_extra_1.default.launch({ headless: false }).then(async (browser) => {
     const username = process.env.USERNAME_TWT || '';
     const password = process.env.PASSWORD_TWT || '';
     await (0, login_1.default)(email, username, password);
+    // start commenting
+    await (0, scrapping_1.default)();
 });

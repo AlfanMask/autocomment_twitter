@@ -39,7 +39,7 @@ export default async function scrapping() {
     if (isAnyCloseBtn) {
         await page.locator('button[aria-label="Close"]').click()
         await delay(2000);
-        console.log('postTweet-9')
+        console.log('scrapping-9": waiting for 5 minutes to repeat the process')
     }
 
     // wait for 5 minutes
