@@ -43,7 +43,7 @@ export default async function scrapping() {
         console.log('scrapping-9": waiting for 5 minutes to repeat the process')
     }
 
-    // wait for 5 minutes
+    // wait for 2 minutes
     await delay(300000)
 
     // refresh to main page with newly freshed timeline

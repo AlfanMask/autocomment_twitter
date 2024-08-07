@@ -29,9 +29,8 @@ export default async function comment(threadMsg: string) {
         console.log('comment-6')
 
         // type ctrl + enter to post
-        await page.keyboard.down('ControlLeft');
-        await delay(1000)
-        await page.keyboard.press('Enter');
+        page.keyboard.down('ControlLeft');
+        page.keyboard.press('Enter');
         await delay(2000)
         await page.keyboard.up('ControlLeft');
     
