@@ -18,7 +18,7 @@ const getAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 const geminiModel = getAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 // launch browser
-puppeteer.launch({ headless: false }).then(async (browser: Browser) => {
+puppeteer.launch({ headless: true }).then(async (browser: Browser) => {
     page = await browser.newPage();
     page.setViewport({ height: 720, width: 1280 });
 
