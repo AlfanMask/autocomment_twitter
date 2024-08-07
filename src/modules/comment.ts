@@ -17,11 +17,15 @@ export default async function comment(threadMsg: string) {
     await page.screenshot({ path: 'ss/comment-4.png' })
 
     // put the comment using puppeteer
-    const inputBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div/div)');
-    await delay(2000)
-    console.log('comment-5')
+    try {
+        const inputBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div/div/div)');
+        await delay(2000)
+        console.log('comment-5')
+        await inputBtn?.click();
+    } catch (erroc) {
+        console.log(erroc)
+    }
     await page.screenshot({ path: 'ss/comment-5.png' })
-    await inputBtn?.click();
     await delay(2000)
     console.log('comment-6')
     await page.screenshot({ path: 'ss/comment-6.png' })
@@ -29,11 +33,15 @@ export default async function comment(threadMsg: string) {
     await delay(2000)
     console.log('comment-7')
     await page.screenshot({ path: 'ss/comment-7.png' })
-    const postBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
-    await delay(2000)
-    console.log('comment-8')
+    try {
+        const postBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
+        await delay(2000)
+        console.log('comment-8')
+        await postBtn?.click()
+    } catch (error) {
+        console.log(error)
+    }
     await page.screenshot({ path: 'ss/comment-8.png' })
-    await postBtn?.click()
     await delay(2000)
     console.log('comment-9: COMMENTED!')
     await page.screenshot({ path: 'ss/comment-9.png' })
