@@ -14,12 +14,14 @@ export default async function scrapping() {
       const textContent = await article.evaluate(el => el.textContent);
       console.log('scrapping-3')
       if (!textContent?.includes(`@${process.env.USERNAME_TWT}`)) {
-        console.log('scrapping-4')
-        await article?.click()
-        console.log('scrapping-5')
-        await delay(2000)
+        // console.log('scrapping-4')
+        // await article?.click()
+        // console.log('scrapping-5')
+        // await delay(2000)
         threadMsgText = await page.evaluate(() => {
-            return document.querySelector('div[data-testid="tweetText"] span')?.innerHTML || '';
+            const textEl = document.querySelector('div[data-testid="tweetText"] span') as HTMLElement;
+            textEl?.click();
+            return textEl?.innerHTML || '';
         })
         console.log('scrapping-6')
         await delay(2000)
