@@ -60,9 +60,13 @@ export default async function login(email: string, username: string, password: s
   
     // close bottom popup if any
     await delay(5000);
-    const closeBtn = await page.waitForSelector('::-p-xpath(//*[@id="layers"]/div/div[1]/div/div/div/button)');
-    await closeBtn?.click()
-    console.log('login-11')
+    try{
+      const closeBtn = await page.waitForSelector('::-p-xpath(//*[@id="layers"]/div/div[1]/div/div/div/button)');
+      await closeBtn?.click()
+      console.log('login-11')
+    } catch (e) {
+      console.log(e)
+    }
 
     // if redirected to login again -> relogin
     const span2Elements = await page.$$('span');
@@ -72,7 +76,7 @@ export default async function login(email: string, username: string, password: s
       if (textContent?.includes('Happening now')) {
         await page.goto('https://twitter.com/login/');
         await delay(1000);
-        await login(email, username, password)
+        await login(email, username, password);
         break;
       }
     }
