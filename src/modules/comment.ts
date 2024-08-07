@@ -43,7 +43,18 @@ export default async function comment(threadMsg: string) {
     await page.screenshot({ path: 'comment.png' })
     await delay(2000)
     console.log('comment-7')
-    const postBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
+    let postBtn;
+    try {
+        postBtn = await page.waitForSelector('::-p-xpath(//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/section/div/div/div[1]/div/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
+    } catch (error) {
+        console.log('error postBtn1: ', error)
+    }
+    try {
+        postBtn = await page.waitForSelector('::-p-xpath(//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div[2]/div/div/div/div[2]/div[2]/div/div/div/button)');
+    } catch (error) {
+        console.log('error postBtn2: ', error)
+    }
+    
     await delay(2000)
     console.log('comment-8')
     await postBtn?.click()
