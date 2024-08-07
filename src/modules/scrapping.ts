@@ -44,7 +44,7 @@ export default async function scrapping() {
     }
 
     // wait for 2 minutes
-    await delay(300000)
+    await delay(120000)
 
     // refresh to main page with newly freshed timeline
     await goHome()
