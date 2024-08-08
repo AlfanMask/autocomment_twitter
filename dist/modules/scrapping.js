@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = scrapping;
 const __1 = require("..");
 const delay_1 = __importDefault(require("../helper/delay"));
+const gohome_1 = __importDefault(require("../helper/gohome"));
 const comment_1 = __importDefault(require("./comment"));
 async function scrapping() {
     // get top thread that is not our thread
@@ -44,13 +45,14 @@ async function scrapping() {
         await (0, delay_1.default)(2000);
         console.log('scrapping-9": waiting for 5 minutes to repeat the process');
     }
-    // wait for 5 minutes
-    await (0, delay_1.default)(300000);
+    // wait for 10 minutes
+    await (0, delay_1.default)(600000);
     // refresh to main page with newly freshed timeline
-    await __1.page.goto('https://twitter.com/');
+    await (0, gohome_1.default)();
     console.log('scrapping-10');
     // repeat
     console.log('scrapping-11: SCRAPPING FINISHED!');
     await (0, delay_1.default)(10000);
+    // TODO: do we need to 'await' to prevent error ? 
     scrapping();
 }

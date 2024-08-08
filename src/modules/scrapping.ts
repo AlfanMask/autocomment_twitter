@@ -31,7 +31,7 @@ export default async function scrapping() {
     // answer the thread
     await comment(threadMsgText)
     await delay(3000)
-    console.log('scrapping-7')
+    console.log('scrapping-7: waiting for 10 minutes to repeat the process')
 
     // if any popup with close button -> click close
     const buttonCount = await page.$$eval('button[aria-label="Close"]', (buttons) => buttons.length);
@@ -40,11 +40,11 @@ export default async function scrapping() {
     if (isAnyCloseBtn) {
         await page.locator('button[aria-label="Close"]').click()
         await delay(2000);
-        console.log('scrapping-9": waiting for 5 minutes to repeat the process')
+        console.log('scrapping-9')
     }
 
-    // wait for 2 minutes
-    await delay(120000)
+    // wait for 10 minutes
+    await delay(600000)
 
     // refresh to main page with newly freshed timeline
     await goHome()
@@ -53,5 +53,6 @@ export default async function scrapping() {
     // repeat
     console.log('scrapping-11: SCRAPPING FINISHED!')
     await delay(10000)
+    // TODO: do we need to 'await' to prevent error ? 
     scrapping()
 }

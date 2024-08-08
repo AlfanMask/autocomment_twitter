@@ -18,14 +18,14 @@ const getAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 const geminiModel = getAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 // launch browser
-puppeteer.launch({ headless: true }).then(async (browser: Browser) => {
+puppeteer.launch({ headless: false }).then(async (browser: Browser) => {
     page = await browser.newPage();
     page.setViewport({ height: 720, width: 1280 });
 
     // generate random user agents so not detected as the same user
     const userAgent = require('user-agents');
-    console.log(userAgent.random().toString());
-    await page.setUserAgent(userAgent.random().toString());
+    console.log("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36");
+    await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36");
     
     // Login
     const email: string = process.env.EMAIL_TWT || '';
