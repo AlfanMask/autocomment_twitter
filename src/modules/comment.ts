@@ -5,7 +5,7 @@ import scrapping from "./scrapping";
 
 export default async function comment(threadMsg: string) {
     // make a prompt with {threadMsg}
-    const templatePrompt = 'Ini adalah postingan di twitter. Tanggapilah dengan jawaban membantu jika konteksnya adalah postingan serius, tanggapilah dengan jawaban lucu jika konteksnya adalah postingan lucu atau humor. Gunakan bahasa indonesia yang lugas, tidak bertele-tele, dan seperti manusia di sosial media apda umumnya. Tanggapi dengan jawaban yang menjawab, bukan berupa template yang saya harus mengisi sendiri. Tanggapi dengan maksimal 250 huruf.'
+    const templatePrompt = 'Ini adalah postingan di twitter. Tanggapilah dengan jawaban membantu jika konteksnya adalah postingan serius, tanggapilah dengan jawaban lucu jika konteksnya adalah postingan lucu atau humor. Gunakan bahasa indonesia yang lugas, bahasa seperti orang-orang indonesia di twitter, tidak bertele-tele, dan seperti manusia di sosial media apda umumnya. Tanggapi dengan jawaban yang menjawab, bukan berupa template yang saya harus mengisi sendiri. Tanggapi dengan maksimal 250 huruf.'
     const tweetPrompt = `${templatePrompt}: ${threadMsg}`
     console.log(`comment-1: ${tweetPrompt}`)
 
@@ -22,7 +22,7 @@ export default async function comment(threadMsg: string) {
         // type R on keyboard to reply on the post
         await page.keyboard.type('R')
         await delay(2000)
-        console.log('comment-5')
+        console.log('comment-5: is typing..')
     
         await page.keyboard.type(answerText, { delay: 100 });
         await delay(2000)

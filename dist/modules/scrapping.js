@@ -35,7 +35,7 @@ async function scrapping() {
     // answer the thread
     await (0, comment_1.default)(threadMsgText);
     await (0, delay_1.default)(3000);
-    console.log('scrapping-7');
+    console.log('scrapping-7: waiting for 10 minutes to repeat the process');
     // if any popup with close button -> click close
     const buttonCount = await __1.page.$$eval('button[aria-label="Close"]', (buttons) => buttons.length);
     console.log('scrapping-8');
@@ -43,7 +43,7 @@ async function scrapping() {
     if (isAnyCloseBtn) {
         await __1.page.locator('button[aria-label="Close"]').click();
         await (0, delay_1.default)(2000);
-        console.log('scrapping-9": waiting for 5 minutes to repeat the process');
+        console.log('scrapping-9');
     }
     // wait for 10 minutes
     await (0, delay_1.default)(600000);
@@ -53,6 +53,6 @@ async function scrapping() {
     // repeat
     console.log('scrapping-11: SCRAPPING FINISHED!');
     await (0, delay_1.default)(10000);
-    // TODO: do we need to 'await' to prevent error ? 
-    scrapping();
+    // TODO: do we need to 'await' to prevent error ? (on testing)
+    await scrapping();
 }
