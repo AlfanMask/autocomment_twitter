@@ -5,7 +5,7 @@ import scrapping from "./scrapping";
 
 export default async function comment(threadMsg: string) {
     // make a prompt with {threadMsg}
-    const templatePrompt = 'Ini adalah postingan di twitter. Tanggapilah dengan jawaban membantu jika konteksnya adalah postingan serius, tanggapilah dengan jawaban lucu jika konteksnya adalah postingan lucu atau humor. Gunakan bahasa indonesia yang lugas, bahasa seperti orang-orang indonesia di twitter, tidak bertele-tele, dan seperti manusia di sosial media apda umumnya. Tanggapi dengan jawaban yang menjawab, bukan berupa template yang saya harus mengisi sendiri. Tanggapi dengan maksimal 250 huruf.'
+    const templatePrompt = 'Ini adalah postingan di twitter. Kamu adalah orang yang sedang bermain sosial media twitter berbahasa Indonesia. Tanggapilah postingan ini sebagai manusia bermain twitter dengan jawaban membantu jika konteksnya adalah postingan serius, tanggapilah dengan jawaban lucu jika konteksnya adalah postingan lucu, humor, atau tidak serius. Tanggapi dengan jawaban yang menjawab, bukan berupa template yang saya harus mengisi sendiri. Gunakan bahasa indonesia yang lugas bahasa seperti orang-orang indonesia di platform twitter. Tanggapi dengan maksimal 250 huruf.'
     const tweetPrompt = `${templatePrompt}: ${threadMsg}`
     console.log(`comment-1: ${tweetPrompt}`)
 
@@ -17,6 +17,11 @@ export default async function comment(threadMsg: string) {
         console.log('comment-3')
         const answerText = response.text();
         console.log('comment-4: ', answerText)
+
+        // check the reponse text should be max 250 characters
+        if (answerText.length > 250) {
+            throw new Error('Answer text is too long. Max 250 characters allowed');
+        }
 
         // put the comment using puppeteer
         // type R on keyboard to reply on the post
@@ -43,7 +48,7 @@ export default async function comment(threadMsg: string) {
         // refresh to main page with newly freshed timeline and rescrapping
         await goHome()
         await delay(10000)
-        scrapping()
+        await scrapping()
     }
 
     
