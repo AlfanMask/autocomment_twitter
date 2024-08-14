@@ -9,19 +9,17 @@ export default async function login() {
   try {
     // #1 LOGIN using Cookie
     await loginCookie()
+    console.log("LOGGED IN using cookie..")
   } catch (errorLoginCookie) {
     console.log('ERROR: login using cookie. ', errorLoginCookie);
 
     // #2 LOGIN manually
     try {
       await loginManual()
+      console.log("LOGGED IN manually..")
     } catch (errorLoginManually) {
       console.log('ERROR: login using cookie. ', errorLoginManually);
-    } finally {
-      console.log("LOGGED IN using cookie..")
     }
-  } finally {
-    console.log("LOGGED IN manually..")
   }
 }
 
