@@ -1,8 +1,58 @@
+import * as path from 'path';
+import * as fs from 'fs';
 import { ElementHandle, NodeFor } from "puppeteer";
 import { page } from "..";
 import delay from "../helper/delay";
+require('dotenv').config()
 
-export default async function login(email: string, username: string, password: string) {
+export default async function login() {
+  try {
+    // #1 LOGIN using Cookie
+    await loginCookie()
+  } catch (errorLoginCookie) {
+    console.log('ERROR: login using cookie. ', errorLoginCookie);
+
+    // #2 LOGIN manually
+    try {
+      await loginManual()
+    } catch (errorLoginManually) {
+      console.log('ERROR: login using cookie. ', errorLoginManually);
+    } finally {
+      console.log("LOGGED IN using cookie..")
+    }
+  } finally {
+    console.log("LOGGED IN manually..")
+  }
+}
+
+  async function loginCookie() {
+    // Get the absolute path to the login_cookie.json file
+    const cookieFilePath = path.join(__dirname, '..', 'data', 'login_cookie.json');
+
+    // go to twitter login page
+    await page.goto('https://twitter.com');
+    await delay(5000);
+
+    // get auth token from json file
+    const data = await fs.promises.readFile(cookieFilePath, 'utf8');
+    const cookieData = JSON.parse(data);
+
+    // set the login cookie
+    await page.setCookie(...cookieData)
+    const cookiesSet = await page.cookies('https://twitter.com/');
+    console.log(JSON.stringify(cookiesSet));
+
+    // reopen homepage with login cookie ativated
+    await delay(5000)
+    await page.goto('https://twitter.com');
+  }
+
+  async function loginManual() {
+    // get auth credentials from env
+    const email: string = process.env.EMAIL_TWT || '';
+    const username: string = process.env.USERNAME_TWT || '';
+    const password: string = process.env.PASSWORD_TWT || '';
+
     // go to twitter login page
     await page.goto('https://twitter.com/login');
     await delay(5000);
@@ -28,7 +78,7 @@ export default async function login(email: string, username: string, password: s
         await page.locator('input.r-30o5oe').fill(username);
         await delay(1000);
 
-        nextBtn = await page.waitForSelector('::-p-xpath(//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
+        nextBtn = await page.waitForSelector('::-p-xpath(//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div/div/button)');
         await nextBtn?.click()
         await delay(1000);
         console.log('login-3')
@@ -76,10 +126,8 @@ export default async function login(email: string, username: string, password: s
       if (textContent?.includes('Happening now')) {
         await page.goto('https://twitter.com/login/');
         await delay(1000);
-        await login(email, username, password);
+        await loginCookie();
         break;
       }
     }
-
-    console.log("LOGGED IN..")
   }

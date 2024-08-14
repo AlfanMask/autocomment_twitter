@@ -5,7 +5,6 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 // const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 import { GoogleGenerativeAI } from "@google/generative-ai"
 import scrapping from './modules/scrapping';
-require('dotenv').config()
 
 // middlewares
 puppeteer.use(StealthPlugin())
@@ -28,10 +27,7 @@ puppeteer.launch({ headless: false }).then(async (browser: Browser) => {
     await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36");
     
     // Login
-    const email: string = process.env.EMAIL_TWT || '';
-    const username: string = process.env.USERNAME_TWT || '';
-    const password: string = process.env.PASSWORD_TWT || '';
-    await login(email, username, password)
+    await login()
 
     // start commenting
     await scrapping();
