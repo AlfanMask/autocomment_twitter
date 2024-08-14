@@ -45,6 +45,9 @@ export default async function login() {
     // reopen homepage with login cookie ativated
     await delay(5000)
     await page.goto('https://twitter.com');
+
+    // wait for 10 seconds to page loaded prefectly before scraping
+    await delay(10000);
   }
 
   async function loginManual() {
@@ -130,4 +133,7 @@ export default async function login() {
         break;
       }
     }
+
+    // wait for 10 seconds to page loaded prefectly before scraping
+    await delay(10000);
   }
