@@ -53,6 +53,5 @@ export default async function scrapping() {
     // repeat
     console.log('scrapping-11: SCRAPPING FINISHED!')
     await delay(10000)
-    // TODO: do we need to 'await' to prevent error ? (on testing)
     await scrapping()
 }

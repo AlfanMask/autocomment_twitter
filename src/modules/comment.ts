@@ -23,6 +23,11 @@ export default async function comment(threadMsg: string) {
             throw new Error('Answer text is too long. Max 250 characters allowed');
         }
 
+        // shouldn't contains [ or ] which means we need to add more info by ourself
+        if (answerText.includes('[') || answerText.includes(']')) {
+            throw new Error('Answer text should not contain [ or ]');
+        }
+
         // put the comment using puppeteer
         // type R on keyboard to reply on the post
         await page.keyboard.type('R')
