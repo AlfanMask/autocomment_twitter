@@ -1,9 +1,18 @@
 import { page } from "..";
 import delay from "../helper/delay";
 import goHome from "../helper/gohome";
+import isBetween9AMAnd9PM from "../helper/workingHours";
 import comment from "./comment";
 
 export default async function scrapping() {
+    // do task if on working hours (9am - 9pm)
+    const isOnWorkingHours = isBetween9AMAnd9PM();
+    if(!isOnWorkingHours){
+        console.log('Oppps.. Not on working hours. Delay for 12 hours')
+        await delay(12 * 60 * 60 * 1000)
+        return;
+    }
+
     // get top thread that is not our thread
     // and then open it
     const articleElements = await page.$$('article');
